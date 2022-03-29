@@ -1,5 +1,6 @@
 <template>
   <div class="picker">
+    <!-- TODO maybe placeholder here when round == 0 || round == totalRounds -->
     <h2>Picker</h2>
     <h3>Round {{ round }} / {{ totalRounds }}</h3>
     <div>

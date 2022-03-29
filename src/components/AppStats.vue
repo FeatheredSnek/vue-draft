@@ -15,6 +15,7 @@
     deck: Card[]
   }>()
 
+  // TODO wrap max+ values
   const max = 10
 
   const statAValues = computed(() => {

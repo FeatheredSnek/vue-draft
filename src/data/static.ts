@@ -1,3 +1,4 @@
+// TODO card text (& update ts interface)
 import { Card } from "@/types/index";
 
 const allCards: Card[] = [

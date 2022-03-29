@@ -12,6 +12,7 @@
 <script setup lang="ts">
   import { defineProps } from "vue"
 
+  // TODO add card text
   defineProps<{
     id: string
     name: string

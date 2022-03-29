@@ -1,6 +1,7 @@
 <template>
   <div class="deck">
     <h2>Deck</h2>
+    <!-- TODO add @hover full card preview -->
     <div v-for="card in deck" :key="card.id">
       {{ card.name }} -- {{ card.type }}
     </div>

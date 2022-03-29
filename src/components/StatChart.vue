@@ -1,6 +1,7 @@
 <template>
   <h3>{{ statName }} chart</h3>
   <div>
+    <!-- TODO barcharts (with scss?) -->
     <span v-for="key in statValues.keys()" :key="key">
       {{ key }} -- <strong>{{ statValues[key] }}</strong> |&nbsp;
     </span>

@@ -1,6 +1,7 @@
 <template>
   <button @click.prevent="start()">Start drafting</button>
   <div class="container">
+    <!-- TODO placeholder when draft is done / not started -->
     <AppPicker
       :deal="state.currentDeal"
       :round="state.currentRound"
@@ -20,6 +21,7 @@
   import { Card, State } from "@/types/index"
 
   // this will be replaced with api call
+  // TODO api call
   import data from "@/data/static"
 
   const totalRounds = 10
@@ -32,6 +34,7 @@
   })
 
   // runs either onMounted or when the user begins
+  // TODO start type
   function start() {
     state.currentDeal = getRandomDeal()
     state.currentRound += 1
@@ -55,6 +58,9 @@
     state.currentRound += 1
     state.currentDeal = getRandomDeal()
   }
+
+  //TODO end draft after x rounds
+
 </script>
 
 <style scoped>

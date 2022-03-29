@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-  import StatChart from "@/StatChart.vue"
+  import StatChart from "@/components/StatChart.vue"
   import { Card } from "@/types/index"
   import { defineProps, computed } from "vue"
 

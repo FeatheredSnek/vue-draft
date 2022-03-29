@@ -15,15 +15,17 @@
     deck: Card[]
   }>()
 
-  // TODO wrap max+ values
   const max = 10
 
+  // TODO use one function with different stat name param for both computed
   const statAValues = computed(() => {
     let values = []
     for (let i = 0; i < max; i++) {
       let count = props.deck.filter((el) => el.statA === i).length
       values[i] = count
     }
+    // count values equal to or above maximum at index [max]
+    values[max] = props.deck.filter((el) => el.statA >= max).length
     return values
   })
 
@@ -33,6 +35,8 @@
       let count = props.deck.filter((el) => el.statB === i).length
       values[i] = count
     }
+    // count values equal to or above maximum at index [max]
+    values[max] = props.deck.filter((el) => el.statB >= max).length
     return values
   })
 

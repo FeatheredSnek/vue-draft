@@ -1,12 +1,12 @@
 <template>
   <button @click.prevent="start()">Start drafting</button>
   <div class="container">
-    <!-- TODO placeholder when draft is done / not started -->
     <AppPicker
       :deal="state.currentDeal"
       :round="state.currentRound"
       :total-rounds="totalRounds"
       @pick="pickCard($event)"
+      @restart="restart()"
     />
     <AppDeck :deck="state.currentDeck" />
     <AppStats :deck="state.currentDeck" />
@@ -24,7 +24,7 @@
   // TODO api call
   import data from "@/data/static"
 
-  const totalRounds = 10
+  const totalRounds = 5
   const allCards = data
 
   let state: State = reactive({
@@ -38,6 +38,13 @@
   function start() {
     state.currentDeal = getRandomDeal()
     state.currentRound += 1
+  }
+
+  function restart() {
+    state.currentDeal.length = 0
+    state.currentDeck.length = 0
+    state.currentRound = 0
+    start()
   }
 
   function getRandomDeal(dealSize = 3): Card[] {
@@ -55,11 +62,15 @@
 
   function pickCard(picked: Card) {
     state.currentDeck.push(picked)
-    state.currentRound += 1
-    state.currentDeal = getRandomDeal()
+    if (state.currentRound <= totalRounds) {
+      state.currentRound += 1
+      state.currentDeal = getRandomDeal()
+    }
+    else {
+      state.currentRound += 1
+      state.currentDeal.length = 0
+    }
   }
-
-  //TODO end draft after x rounds
 
 </script>
 

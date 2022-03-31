@@ -9,6 +9,7 @@
         :id="card.id"
         :name="card.name"
         :type="card.type"
+        :text="card.text"
         :statA="card.statA"
         :statB="card.statB"
         :image="card.image"

@@ -3,6 +3,7 @@
     <p>{{ id }}</p>
     <p>{{ name }}</p>
     <p>{{ type }}</p>
+    <p>{{ text }}</p>
     <p>{{ statA }}</p>
     <p>{{ statB }}</p>
     <p>{{ image }}</p>
@@ -12,11 +13,11 @@
 <script setup lang="ts">
   import { defineProps } from "vue"
 
-  // TODO add card text
   defineProps<{
     id: string
     name: string
     type: string
+    text: string
     statA: number
     statB: number
     image: string

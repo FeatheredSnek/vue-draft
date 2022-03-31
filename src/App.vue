@@ -20,12 +20,11 @@
   import { reactive } from "vue"
   import { Card, State } from "@/types/index"
 
-  // this will be replaced with api call
-  // TODO api call
-  import data from "@/data/static"
+  // use random card generator
+  import generator from "@/data/generator"
 
   const totalRounds = 5
-  const allCards = data
+  const allCards = generator.generateBatch(10)
 
   let state: State = reactive({
     currentDeal: [],

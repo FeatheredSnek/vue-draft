@@ -1,7 +1,6 @@
 <template>
-  <div class="picker">
-    <h2>Picker</h2>
-    <h3>{{ roundCounter }}</h3>
+  <div class="draft">
+    <div class="counter">{{ roundCounter }}</div>
     <div class="deal" v-if="props.round <= props.totalRounds">
       <CardPreview
         v-for="card in deal"
@@ -48,8 +47,18 @@
   }>()
 </script>
 
-<style scoped>
-  .picker {
-    background-color: lightpink;
+<style scoped lang="scss">
+  .draft {
+    grid-area: draft;
+    width: auto;
+    flex-direction: column;
+    @include flex-center;
+  }
+  .deal {
+    @include flex-center;
+  }
+  .counter {
+    font-size: $fs-big;
+    color: $fc-light;
   }
 </style>

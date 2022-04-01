@@ -1,6 +1,5 @@
 <template>
   <div class="stats">
-    <h2>Stats</h2>
     <StatChart :stat-values="statAValues" stat-name="statA" />
     <StatChart :stat-values="statBValues" stat-name="statB" />
   </div>
@@ -15,7 +14,7 @@
     deck: Card[]
   }>()
 
-  const max = 10
+  const max = 9
 
   // TODO use one function with different stat name param for both computed
   const statAValues = computed(() => {
@@ -42,8 +41,11 @@
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .stats {
-    background-color: aqua;
+    grid-area: stats;
+    @include flex-center;
+    background-color: $bg-darker;
+    border-top: $border-dark;
   }
 </style>

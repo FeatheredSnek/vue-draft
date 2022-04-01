@@ -1,0 +1,35 @@
+@use "sass:map";
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin colorize($color-name) {
+  .card-title, .minicard-stats, .card-stats>div {
+    background-image: map.get($gradient-colors, #{$color-name});
+    background-color: map.get($flat-colors, #{$color-name});
+  }
+  p {
+    color: map.get($flat-colors, #{$color-name});
+  }
+}
+
+@mixin hovered-item {
+  transform: scale(1.1, 1.1);
+  filter: $shadow-hover;
+}
+
+@mixin card-box {
+  outline: $border-light;
+  background-image: $gradient-gray;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+@mixin card-title {
+  font-size: $fs-title;
+  line-height: 1.5em;
+  padding-left: 16px;
+}

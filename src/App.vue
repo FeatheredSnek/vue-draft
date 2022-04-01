@@ -73,10 +73,16 @@
 
 </script>
 
-<style scoped>
-  .container {
-    width: 100%;
-    height: 100%;
-    margin: 30px;
-  }
+<style lang="scss">
+@import '@/styles/global.scss';
+
+.container {
+  width:100%;
+  height:100vh;
+  display: grid;
+  grid-template: auto 240px / auto 340px;
+  grid-template-areas:
+    'draft deck'
+    'stats deck';
+}
 </style>

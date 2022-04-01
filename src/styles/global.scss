@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+}
+
+body {
+  color: $fc-dark;
+  margin: 0;
+  font-family: 'Noto Sans', sans-serif;
+  background-color: $bg-dark;
+}
+
+// colorizing classes
+.blue {
+  @include colorize("blue");
+}
+
+.yellow {
+  @include colorize("yellow");
+}
+
+.purple {
+  @include colorize("purple");
+}
+
+.white {
+  @include colorize("white");
+}
+
+// graph static value helpers
+.v00 {
+  height: 0%;
+}
+
+.v25 {
+  height: 25%;
+}
+
+.v50 {
+  height: 50%;
+}
+
+.v75 {
+  height: 75%;
+}

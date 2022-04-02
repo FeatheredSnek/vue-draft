@@ -2,10 +2,12 @@
   <div class="graph-wrap">
     <ul>
       <li v-for="key in statValues.keys()" :key="key">
-        <div class="bar v25"></div>
+        <!-- TODO hover/highlight on graph value hover -->
+        <div class="bar" :style="{ 'height': `${statPercentWeights[key]}%` }"></div>
         <div class="value">{{ key === statMax ? `${key}+` : key }}</div>
       </li>
     </ul>
+    <!-- TODO stat symbols -->
     <p>❤</p>
   </div>
 </template>
@@ -16,10 +18,29 @@
   const props = defineProps<{
     statValues: number[],
     statName: string,
+    deckCardCount: number
   }>()
 
   // -1 required because the lowest possible stat value is 0
   const statMax = computed(() => props.statValues.length - 1)
+
+  const statPercentWeights = computed(() => {
+    // get weights -- count/all values
+    const vals = props.statValues.map(el => {
+      let val = (el / props.deckCardCount)
+      if (Number.isNaN(val)) {
+        return 0
+      }
+      else {
+        return val
+      }
+    })
+    // adjust all weights to max=100 baseline
+    let max = [...vals].sort()[vals.length-1]
+    let f = max ? 1 / max : 0
+    const adjustedVals = vals.map(el => (el * f * 100).toFixed(1))
+    return adjustedVals
+  })
 </script>
 
 <style scoped lang="scss">
@@ -52,6 +73,7 @@
       .bar {
         width: 20px;
         background-color: $fc-light;
+        transition: height 0.3s ease-out;
       }
     }
     p {

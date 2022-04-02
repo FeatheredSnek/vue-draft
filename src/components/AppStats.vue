@@ -1,7 +1,7 @@
 <template>
   <div class="stats">
-    <StatChart :stat-values="statAValues" stat-name="statA" />
-    <StatChart :stat-values="statBValues" stat-name="statB" />
+    <StatChart :stat-values="statAValues" :deckCardCount="deck.length" stat-name="statA" />
+    <StatChart :stat-values="statBValues" :deckCardCount="deck.length" stat-name="statB" />
   </div>
 </template>
 

@@ -1,7 +1,15 @@
 <template>
   <div class="stats">
-    <StatChart :stat-values="statAValues" :deckCardCount="deck.length" stat-name="statA" />
-    <StatChart :stat-values="statBValues" :deckCardCount="deck.length" stat-name="statB" />
+    <StatChart
+      :stat-values="statAValues"
+      :deckCardCount="deck.length"
+      stat-icon="bi-heart-fill"
+    />
+    <StatChart
+      :stat-values="statBValues"
+      :deckCardCount="deck.length"
+      stat-icon="bi-star-fill"
+    />
   </div>
 </template>
 
@@ -38,7 +46,6 @@
     values[max] = props.deck.filter((el) => el.statB >= max).length
     return values
   })
-
 </script>
 
 <style scoped lang="scss">

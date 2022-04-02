@@ -3,12 +3,14 @@
     <ul>
       <li v-for="key in statValues.keys()" :key="key">
         <!-- TODO hover/highlight on graph value hover -->
-        <div class="bar" :style="{ 'height': `${statPercentWeights[key]}%` }"></div>
+        <div
+          class="bar"
+          :style="{ height: `${statPercentWeights[key]}%` }"
+        ></div>
         <div class="value">{{ key === statMax ? `${key}+` : key }}</div>
       </li>
     </ul>
-    <!-- TODO stat symbols -->
-    <p>❤</p>
+    <i :class="statIcon"></i>
   </div>
 </template>
 
@@ -16,8 +18,8 @@
   import { computed, defineProps } from "vue"
 
   const props = defineProps<{
-    statValues: number[],
-    statName: string,
+    statValues: number[]
+    statIcon: string
     deckCardCount: number
   }>()
 
@@ -26,19 +28,18 @@
 
   const statPercentWeights = computed(() => {
     // get weights -- count/all values
-    const vals = props.statValues.map(el => {
-      let val = (el / props.deckCardCount)
+    const vals = props.statValues.map((el) => {
+      let val = el / props.deckCardCount
       if (Number.isNaN(val)) {
         return 0
-      }
-      else {
+      } else {
         return val
       }
     })
     // adjust all weights to max=100 baseline
-    let max = [...vals].sort()[vals.length-1]
+    let max = [...vals].sort()[vals.length - 1]
     let f = max ? 1 / max : 0
-    const adjustedVals = vals.map(el => (el * f * 100).toFixed(1))
+    const adjustedVals = vals.map((el) => (el * f * 100).toFixed(1))
     return adjustedVals
   })
 </script>
@@ -76,10 +77,10 @@
         transition: height 0.3s ease-out;
       }
     }
-    p {
+    i {
       @include flex-center;
       margin-top: 10px;
-      font-size: $fs-stat;
+      font-size: $fs-title;
       width: 40px;
       height: 40px;
     }

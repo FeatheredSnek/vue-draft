@@ -1,5 +1,4 @@
 <template>
-
   <div class="card" :class="type" :id="id">
     <div class="title-wrap">
       <div class="card-title">
@@ -7,7 +6,6 @@
       </div>
     </div>
     <div class="body">
-      <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Bombina_bombina_1_(Marek_Szczepanek)_tight_crop.jpg/320px-Bombina_bombina_1_(Marek_Szczepanek)_tight_crop.jpg" /> -->
       <img :src="image" />
       <p>
         {{ text }}
@@ -15,23 +13,13 @@
     </div>
     <div class="card-stats">
       <div class="stat">
-        <span>❤</span>{{ statA }}
+        <i class="bi-heart-fill"></i>{{ statA }}
       </div>
       <div class="stat">
-        <span>✸</span>{{ statB }}
+        <i class="bi-star-fill"></i>{{ statB }}
       </div>
     </div>
   </div>
-
-  <!-- <div :style="{ 'background-color': type }" class="card">
-    <p>{{ id }}</p>
-    <p>{{ name }}</p>
-    <p>{{ type }}</p>
-    <p>{{ text }}</p>
-    <p>{{ statA }}</p>
-    <p>{{ statB }}</p>
-    <p>{{ image }}</p>
-  </div> -->
 </template>
 
 <script setup lang="ts">
@@ -66,7 +54,7 @@
     }
     .card-title {
       @include card-title;
-      padding-left:16px;
+      padding-left: 16px;
       width: 240px;
       height: 40px;
       transform: translateX(-8px);
@@ -108,8 +96,8 @@
         height: 40px;
         clip-path: $cut-both;
         @include flex-center;
-        span {
-          font-size: 0.8em;
+        i {
+          font-size: 0.6em;
           margin-right: 4px;
         }
       }

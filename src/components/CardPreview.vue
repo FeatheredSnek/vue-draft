@@ -81,6 +81,7 @@
     }
     p {
       width: 160px;
+      max-height: 70px;
       font-size: $fs-text;
       margin: 14px auto;
     }

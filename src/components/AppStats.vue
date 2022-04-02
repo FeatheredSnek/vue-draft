@@ -24,28 +24,25 @@
 
   const max = 9
 
-  // TODO use one function with different stat name param for both computed
   const statAValues = computed(() => {
-    let values = []
-    for (let i = 0; i < max; i++) {
-      let count = props.deck.filter((el) => el.statA === i).length
-      values[i] = count
-    }
-    // count values equal to or above maximum at index [max]
-    values[max] = props.deck.filter((el) => el.statA >= max).length
-    return values
+    return statComputer("statA")
   })
 
   const statBValues = computed(() => {
+    return statComputer("statB")
+  })
+
+  function statComputer(statName: "statA"|"statB") {
     let values = []
     for (let i = 0; i < max; i++) {
-      let count = props.deck.filter((el) => el.statB === i).length
+      let count = props.deck.filter((el) => el[statName] === i).length
       values[i] = count
     }
     // count values equal to or above maximum at index [max]
-    values[max] = props.deck.filter((el) => el.statB >= max).length
+    values[max] = props.deck.filter((el) => el[statName] >= max).length
     return values
-  })
+  }
+  
 </script>
 
 <style scoped lang="scss">

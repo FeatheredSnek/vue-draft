@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO proper modal to start -->
   <div class="container">
     <AppPicker
       :deal="state.currentDeal"

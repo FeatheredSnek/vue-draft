@@ -19,25 +19,41 @@
         ></a>
       </div>
     </div>
-    <div class="counter">{{ roundCounter }}</div>
-    <div class="deal" v-if="props.round <= props.totalRounds">
-      <CardPreview
-        v-for="card in deal"
-        :key="card.id"
-        :id="card.id"
-        :name="card.name"
-        :type="card.type"
-        :text="card.text"
-        :statA="card.statA"
-        :statB="card.statB"
-        :image="card.image"
-        @click="$emit('pick', deal[deal.indexOf(card)])"
-      />
+    <div class="re-start" v-if="props.round === 0">
+      <p>Begin drafting {{ totalRounds }} cards</p>
+      <p>
+        <i
+          class="bi-play-circle-fill"
+          :class="startButtonStatus"
+          @click.prevent="$emit('start')"
+        ></i>
+      </p>
     </div>
-    <div v-else>
+    <div class="deal" v-else-if="props.round < props.totalRounds">
+      <div class="counter">{{ roundCounter }}</div>
+      <div class="cards">
+        <CardPreview
+          v-for="card in deal"
+          :key="card.id"
+          :id="card.id"
+          :name="card.name"
+          :type="card.type"
+          :text="card.text"
+          :statA="card.statA"
+          :statB="card.statB"
+          :image="card.image"
+          @click="$emit('pick', deal[deal.indexOf(card)])"
+        />
+      </div>
+    </div>
+    <div class="re-start" v-else>
       <p>Your deck is ready</p>
       <p>
-        <button @click.prevent="$emit('restart')">Restart</button>
+        <i
+          class="bi-skip-backward-circle-fill"
+          :class="restartButtonStatus"
+          @click.prevent="$emit('restart')"
+        ></i>
       </p>
     </div>
   </div>
@@ -102,8 +118,6 @@
         margin-right: 8px;
       }
       i {
-        display: inline-block;
-        cursor: pointer;
         font-size: 0.8em;
         margin-left: 12px;
         transition: transform 0.2s;
@@ -114,10 +128,34 @@
     }
     .deal {
       @include flex-center;
+      flex-direction: column;
+    }
+    .cards {
+      @include flex-center;
     }
     .counter {
       font-size: $fs-big;
       color: $fc-light;
     }
+    .re-start {
+      @include flex-center;
+      flex-direction: column;
+      font-size: $fs-big;
+      color: $fc-light;
+      p {
+        margin-bottom: 0.3em;
+      }
+      i {
+        font-size: 1.3em;
+        transition: transform 0.3s;
+      }
+      .hoverable:hover {
+        transform: scale(1.2, 1.2);
+      }
+    }
+  }
+  i {
+    display: inline-block;
+    cursor: pointer;
   }
 </style>

@@ -9,8 +9,16 @@
       @restart="restart()"
       @start="start()"
     />
-    <AppDeck :deck="state.currentDeck" />
-    <AppStats :deck="state.currentDeck" />
+    <AppDeck
+      :deck="state.currentDeck"
+      :hovered-stat-name="controls.hoveredStatName"
+      :hovered-stat-value="controls.hoveredStatValue"
+    />
+    <AppStats
+      :deck="state.currentDeck"
+      @hover-stat="hoverHandler($event)"
+      @unhover="unhoverHandler()"
+    />
   </div>
 </template>
 
@@ -19,7 +27,7 @@
   import AppDeck from "@/components/AppDeck.vue"
   import AppStats from "@/components/AppStats.vue"
   import { reactive } from "vue"
-  import { Card, State } from "@/types/index"
+  import { Card, State, Controls } from "@/types/index"
 
   // use random card generator
   import generator from "@/data/generator"
@@ -31,6 +39,11 @@
     currentDeal: [],
     currentRound: 0,
     currentDeck: [],
+  })
+
+  let controls: Controls = reactive({
+    hoveredStatName: null,
+    hoveredStatValue: null,
   })
 
   // runs either onMounted or when the user begins
@@ -74,6 +87,16 @@
       state.currentRound += 1
       state.currentDeal.length = 0
     }
+  }
+
+  function hoverHandler(payload: { statName: string; statValue: number }) {
+    controls.hoveredStatName = payload.statName
+    controls.hoveredStatValue = payload.statValue
+  }
+
+  function unhoverHandler() {
+    controls.hoveredStatName = null
+    controls.hoveredStatValue = null
   }
 </script>
 

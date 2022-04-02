@@ -4,11 +4,15 @@
       :stat-values="statAValues"
       :deckCardCount="deck.length"
       stat-icon="bi-heart-fill"
+      @hover-stat="$emit('hoverStat', { statName: 'statA', statValue: $event })"
+      @mouseleave="$emit('unhover')"
     />
     <StatChart
       :stat-values="statBValues"
       :deckCardCount="deck.length"
       stat-icon="bi-star-fill"
+      @hover-stat="$emit('hoverStat', { statName: 'statB', statValue: $event })"
+      @mouseleave="$emit('unhover')"
     />
   </div>
 </template>
@@ -16,7 +20,7 @@
 <script setup lang="ts">
   import StatChart from "@/components/StatChart.vue"
   import { Card } from "@/types/index"
-  import { defineProps, computed } from "vue"
+  import { defineProps, computed, defineEmits } from "vue"
 
   const props = defineProps<{
     deck: Card[]
@@ -32,7 +36,7 @@
     return statComputer("statB")
   })
 
-  function statComputer(statName: "statA"|"statB") {
+  function statComputer(statName: "statA" | "statB") {
     let values = []
     for (let i = 0; i < max; i++) {
       let count = props.deck.filter((el) => el[statName] === i).length
@@ -42,7 +46,11 @@
     values[max] = props.deck.filter((el) => el[statName] >= max).length
     return values
   }
-  
+
+  defineEmits<{
+    (e: "hoverStat", value: { statName: string; statValue: number }): void
+    (e: "unhover") : void
+  }>()
 </script>
 
 <style scoped lang="scss">

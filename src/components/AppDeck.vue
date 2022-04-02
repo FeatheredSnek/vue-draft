@@ -1,7 +1,12 @@
 <template>
   <div class="deck">
     <!-- TODO add @hover full card preview -->
-    <div v-for="card in deck" :key="card.id" class="minicard" :class="card.type">
+    <div
+      v-for="card in deck"
+      :key="card.id"
+      class="minicard"
+      :class="minicardClass(card.type, card.statA, card.statB)"
+    >
       <p class="minicard-title">{{ card.name }}</p>
       <div class="minicard-stats">{{ card.statA }} / {{ card.statB }}</div>
     </div>
@@ -12,9 +17,22 @@
   import { Card } from "@/types/index"
   import { defineProps } from "vue"
 
-  defineProps<{
+  const props = defineProps<{
     deck: Card[]
+    hoveredStatValue: number | null
+    hoveredStatName: string | null
   }>()
+
+  function minicardClass(type: string, statA: number, statB: number) {
+    let classList = [type]
+    if (statA === props.hoveredStatValue && props.hoveredStatName === "statA") {
+      classList.push("minicard-hovered")
+    }
+    if (statB === props.hoveredStatValue && props.hoveredStatName === "statB") {
+      classList.push("minicard-hovered")
+    }
+    return classList
+  }
 </script>
 
 <style scoped lang="scss">
@@ -47,7 +65,7 @@
       transform: translateX(20px) translateY(-1px);
     }
   }
-  .minicard:hover {
+  .minicard-hovered {
     @include hovered-item;
   }
 </style>

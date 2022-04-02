@@ -1,8 +1,13 @@
 <template>
   <div class="graph-wrap">
     <ul>
-      <li v-for="key in statValues.keys()" :key="key">
-        <!-- TODO hover/highlight on graph value hover -->
+      <li
+        v-for="key in statValues.keys()"
+        :key="key"
+        @mouseover="
+          $emit('hoverStat', key)
+        "
+      >
         <div
           class="bar"
           :style="{ height: `${statPercentWeights[key]}%` }"
@@ -15,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-  import { computed, defineProps } from "vue"
+  import { computed, defineProps, defineEmits } from "vue"
 
   const props = defineProps<{
     statValues: number[]
@@ -42,6 +47,10 @@
     const adjustedVals = vals.map((el) => (el * f * 100).toFixed(1))
     return adjustedVals
   })
+
+  defineEmits<{
+    (e: "hoverStat", value: number): void
+  }>()
 </script>
 
 <style scoped lang="scss">
@@ -67,6 +76,7 @@
         align-items: center;
         width: 100%;
         margin: 0;
+        cursor: pointer;
       }
       .value {
         margin-top: 10px;

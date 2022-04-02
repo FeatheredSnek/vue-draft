@@ -13,3 +13,8 @@ export interface State {
   currentDeck: Card[],
   currentRound: number
 }
+
+export interface Controls {
+  hoveredStatName: string | null
+  hoveredStatValue: number | null
+}

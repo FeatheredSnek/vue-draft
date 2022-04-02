@@ -16,7 +16,8 @@ export default {
     const type = types[Math.floor(Math.random() * types.length)]
     const image = images[Math.floor(Math.random() * images.length)]
     let text = ''
-    for (let i = 0; i < 8; i++) {
+    const textLength = 8 + Math.floor(Math.random() * 5)
+    for (let i = 0; i < textLength; i++) {
       const id = Math.floor(Math.random() * words.length)
       text += `${words[id]} `
     }

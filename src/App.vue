@@ -1,5 +1,5 @@
 <template>
-  <button @click.prevent="start()">Start drafting</button>
+  <!-- TODO proper modal to start -->
   <div class="container">
     <AppPicker
       :deal="state.currentDeal"
@@ -7,6 +7,7 @@
       :total-rounds="totalRounds"
       @pick="pickCard($event)"
       @restart="restart()"
+      @start="start()"
     />
     <AppDeck :deck="state.currentDeck" />
     <AppStats :deck="state.currentDeck" />
@@ -35,16 +36,21 @@
   // runs either onMounted or when the user begins
   // TODO start type
   function start() {
-    state.currentDeal = getRandomDeal()
-    state.currentRound += 1
+    if (state.currentRound === 0) {
+      state.currentDeal = getRandomDeal()
+      state.currentRound += 1
+    }
   }
 
   function restart() {
-    state.currentDeal.length = 0
-    state.currentDeck.length = 0
-    state.currentRound = 0
-    start()
+    if (state.currentRound != 0) {
+      state.currentDeal.length = 0
+      state.currentDeck.length = 0
+      state.currentRound = 0
+      start()
+    }
   }
+  //TODO restart animation
 
   function getRandomDeal(dealSize = 3): Card[] {
     let cards: Card[] = []
@@ -64,25 +70,23 @@
     if (state.currentRound <= totalRounds) {
       state.currentRound += 1
       state.currentDeal = getRandomDeal()
-    }
-    else {
+    } else {
       state.currentRound += 1
       state.currentDeal.length = 0
     }
   }
-
 </script>
 
 <style lang="scss">
-@import '@/styles/global.scss';
+  @import "@/styles/global.scss";
 
-.container {
-  width:100%;
-  height:100vh;
-  display: grid;
-  grid-template: auto 240px / auto 340px;
-  grid-template-areas:
-    'draft deck'
-    'stats deck';
-}
+  .container {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template: auto 240px / auto 340px;
+    grid-template-areas:
+      "draft deck"
+      "stats deck";
+  }
 </style>

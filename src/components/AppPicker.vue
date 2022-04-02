@@ -19,6 +19,7 @@
         ></a>
       </div>
     </div>
+    <Transition name="modal" mode="out-in">
     <div class="re-start" v-if="props.round === 0">
       <p>Begin drafting {{ totalRounds }} cards</p>
       <p>
@@ -56,6 +57,7 @@
         ></i>
       </p>
     </div>
+    </Transition>
   </div>
 </template>
 
@@ -157,5 +159,11 @@
   i {
     display: inline-block;
     cursor: pointer;
+  }
+  .modal-enter-active, .modal-leave-active {
+    transition: opacity 0.5s ease;
+  }
+  .modal-enter-from, .modal-leave-to {
+    opacity: 0;
   }
 </style>

@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
   import CardPreview from "@/components/CardPreview.vue"
-  import { defineProps, defineEmits, computed, reactive } from "vue"
+  import { defineProps, defineEmits, computed, reactive, ref } from "vue"
   import { Card } from "@/types/index"
 
   const props = defineProps<{
@@ -92,20 +92,29 @@
     'movement-default',
     'movement-default'])
 
+  const pickable = ref(true)
+
   function pickHandler(pickedCard: Card, pickedIndex: number) {
-    // 1) move->hide 2) change data 3) hide->appear
-    // with 50ms delay between transition steps to avoid glitches
-    movementClasses.fill('movement-down')
-    movementClasses[pickedIndex] = 'movement-side'
-    setTimeout(() => {
-      movementClasses.fill('movement-hidden')
-    }, 550);
-    setTimeout(() => {
-      emit('pick', pickedCard)
-    }, 600);
-    setTimeout(() => {
-      movementClasses.fill('movement-default')
-    }, 650);
+    // handle clicks only when the card animation is finished
+    if (pickable.value === true) {
+      pickable.value = false
+      // 1) move->hide 2) change data 3) hide->appear
+      // with 50ms delay between transition steps to avoid glitches
+      movementClasses.fill('movement-down')
+      movementClasses[pickedIndex] = 'movement-side'
+      setTimeout(() => {
+        movementClasses.fill('movement-hidden')
+      }, 550);
+      setTimeout(() => {
+        emit('pick', pickedCard)
+      }, 600);
+      setTimeout(() => {
+        movementClasses.fill('movement-default')
+      }, 650);
+      setTimeout(() => {
+        pickable.value = true
+      }, 1150);
+    }
   }
 
   const emit = defineEmits<{

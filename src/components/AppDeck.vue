@@ -1,6 +1,7 @@
 <template>
   <div class="deck">
     <!-- TODO add @hover full card preview -->
+    <TransitionGroup name="fade">
     <div
       v-for="card in deck"
       :key="card.id"
@@ -10,6 +11,7 @@
       <p class="minicard-title">{{ card.name }}</p>
       <div class="minicard-stats">{{ card.statA }} / {{ card.statB }}</div>
     </div>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -67,5 +69,16 @@
   }
   .minicard-hovered {
     @include hovered-item;
+  }
+  // transition classes
+  .fade-move, .fade-enter-active, .fade-leave-active {
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  }
+  .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+    transform: translate(-30px, 0);
+  }
+  .fade-leave-active {
+    position: absolute;
   }
 </style>

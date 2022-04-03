@@ -30,7 +30,7 @@
         ></i>
       </p>
     </div>
-    <div class="deal" v-else-if="props.round < props.totalRounds">
+    <div class="deal" v-else-if="props.round <= props.totalRounds">
       <div class="counter">{{ roundCounter }}</div>
       <div class="cards">
         <CardPreview

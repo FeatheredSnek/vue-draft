@@ -43,7 +43,8 @@
             :statA="card.statA"
             :statB="card.statB"
             :image="card.image"
-            @click="pickHandler(card)"
+            :movement-class="movementClasses[deal.indexOf(card)]"
+            @click="pickHandler(card, deal.indexOf(card))"
           />
         </div>
       </div>
@@ -63,7 +64,7 @@
 
 <script setup lang="ts">
   import CardPreview from "@/components/CardPreview.vue"
-  import { defineProps, defineEmits, computed } from "vue"
+  import { defineProps, defineEmits, computed, reactive } from "vue"
   import { Card } from "@/types/index"
 
   const props = defineProps<{
@@ -86,8 +87,25 @@
     return props.round > 0 ? "hoverable" : ""
   })
 
-  function pickHandler(pickedCard: Card) {
-    emit('pick', pickedCard)
+  const movementClasses = reactive([
+    'movement-default',
+    'movement-default',
+    'movement-default'])
+
+  function pickHandler(pickedCard: Card, pickedIndex: number) {
+    // 1) move->hide 2) change data 3) hide->appear
+    // with 50ms delay between transition steps to avoid glitches
+    movementClasses.fill('movement-down')
+    movementClasses[pickedIndex] = 'movement-side'
+    setTimeout(() => {
+      movementClasses.fill('movement-hidden')
+    }, 550);
+    setTimeout(() => {
+      emit('pick', pickedCard)
+    }, 600);
+    setTimeout(() => {
+      movementClasses.fill('movement-default')
+    }, 650);
   }
 
   const emit = defineEmits<{
@@ -96,7 +114,6 @@
     (e: "start"): void
   }>()
 
-  //TODO card pick animations
 </script>
 
 <style scoped lang="scss">

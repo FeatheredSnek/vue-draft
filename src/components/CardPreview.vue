@@ -1,4 +1,5 @@
 <template>
+<div class="movement-wrapper" :class="movementClass">
   <div class="card" :class="type" :id="id">
     <div class="title-wrap">
       <div class="card-title">
@@ -20,6 +21,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -33,6 +35,7 @@
     statA: number
     statB: number
     image: string
+    movementClass: string
   }>()
 </script>
 
@@ -109,5 +112,29 @@
   }
   .card:hover {
     @include hovered-item;
+  }
+  // movement classes for picking animations
+  .movement-down {
+    transition: all 0.5s ease-out;
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  .movement-side {
+    transition: all 0.5s ease-out;
+    transform: translateX(60px);
+    opacity: 0;
+  }
+  .movement-up {
+    transition: all 0.5s ease-out;
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  .movement-hidden {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  .movement-default {
+    transition: all 0.5s ease-out;
+    opacity: 1;
   }
 </style>

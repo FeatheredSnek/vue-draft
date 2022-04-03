@@ -20,43 +20,43 @@
       </div>
     </div>
     <Transition name="modal" mode="out-in">
-    <div class="re-start" v-if="props.round === 0">
-      <p>Begin drafting {{ totalRounds }} cards</p>
-      <p>
-        <i
-          class="bi-play-circle-fill"
-          :class="startButtonStatus"
-          @click.prevent="$emit('start')"
-        ></i>
-      </p>
-    </div>
-    <div class="deal" v-else-if="props.round <= props.totalRounds">
-      <div class="counter">{{ roundCounter }}</div>
-      <div class="cards">
-        <CardPreview
-          v-for="card in deal"
-          :key="card.id"
-          :id="card.id"
-          :name="card.name"
-          :type="card.type"
-          :text="card.text"
-          :statA="card.statA"
-          :statB="card.statB"
-          :image="card.image"
-          @click="$emit('pick', deal[deal.indexOf(card)])"
-        />
+      <div class="re-start" v-if="props.round === 0">
+        <p>Begin drafting {{ totalRounds }} cards</p>
+        <p>
+          <i
+            class="bi-play-circle-fill"
+            :class="startButtonStatus"
+            @click.prevent="$emit('start')"
+          ></i>
+        </p>
       </div>
-    </div>
-    <div class="re-start" v-else>
-      <p>Your deck is ready</p>
-      <p>
-        <i
-          class="bi-skip-backward-circle-fill"
-          :class="restartButtonStatus"
-          @click.prevent="$emit('restart')"
-        ></i>
-      </p>
-    </div>
+      <div class="deal" v-else-if="props.round <= props.totalRounds">
+        <div class="counter">{{ roundCounter }}</div>
+        <div class="cards">
+          <CardPreview
+            v-for="card in deal"
+            :key="card.id"
+            :id="card.id"
+            :name="card.name"
+            :type="card.type"
+            :text="card.text"
+            :statA="card.statA"
+            :statB="card.statB"
+            :image="card.image"
+            @click="pickHandler(card)"
+          />
+        </div>
+      </div>
+      <div class="re-start" v-else>
+        <p>Your deck is ready</p>
+        <p>
+          <i
+            class="bi-skip-backward-circle-fill"
+            :class="restartButtonStatus"
+            @click.prevent="$emit('restart')"
+          ></i>
+        </p>
+      </div>
     </Transition>
   </div>
 </template>
@@ -86,7 +86,11 @@
     return props.round > 0 ? "hoverable" : ""
   })
 
-  defineEmits<{
+  function pickHandler(pickedCard: Card) {
+    emit('pick', pickedCard)
+  }
+
+  const emit = defineEmits<{
     (e: "pick", value: Card): void
     (e: "restart"): void
     (e: "start"): void

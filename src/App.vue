@@ -73,7 +73,14 @@
       while (cards.find((el) => el.id === allCards[randomIndex].id)) {
         randomIndex = Math.floor(Math.random() * allCards.length)
       }
-      cards.push(allCards[randomIndex])
+      // if the card has already been drafted give it new unique id...
+      let card = allCards[randomIndex]
+      if (state.currentDeck.includes(card)) {
+        // ...which also requires making new object
+        card = {...card} 
+        card.id = generator.generateId()
+      }
+      cards.push(card)
     }
     return cards
   }

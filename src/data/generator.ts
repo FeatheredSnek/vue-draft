@@ -1,4 +1,5 @@
 import premadeLists from "@/data/lists"
+import options from "@/data/options"
 import { Card } from "@/types/index"
 
 export default {
@@ -40,9 +41,14 @@ export default {
     return batchOutput
   },
 
-  generateText(wordlist: string[]) {
+  generateText(
+    wordlist: string[],
+    minLength = options.minTextLength,
+    maxLength = options.maxTextLength
+  ) {
     let text = ""
-    const textLength = 8 + Math.floor(Math.random() * 5)
+    const textLength =
+      minLength + Math.floor(Math.random() * (maxLength - minLength))
     for (let i = 0; i < textLength; i++) {
       const id = Math.floor(Math.random() * wordlist.length)
       text += `${wordlist[id]} `
@@ -52,7 +58,7 @@ export default {
     return text
   },
 
-  generateStat(min = 0, max = 9) {
+  generateStat(min = options.minStat, max = options.maxStat) {
     return Math.floor(Math.random() * (max + 1)) + min
   },
 

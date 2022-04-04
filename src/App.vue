@@ -25,14 +25,15 @@
   import AppPicker from "@/components/AppPicker.vue"
   import AppDeck from "@/components/AppDeck.vue"
   import AppStats from "@/components/AppStats.vue"
+  import options from "@/data/options"
   import { nextTick, reactive } from "vue"
   import { Card, State, Controls } from "@/types/index"
 
   // use random card generator
   import generator from "@/data/generator"
 
-  const totalRounds = 5
-  const allCards = generator.generateBatch(10)
+  const totalRounds = options.draftSize
+  const allCards = generator.generateBatch(options.batchSize)
 
   let state: State = reactive({
     currentDeal: [],
@@ -45,8 +46,6 @@
     hoveredStatValue: null,
   })
 
-  // runs either onMounted or when the user begins
-  // TODO start type
   function start() {
     if (state.currentRound === 0) {
       state.currentDeal = getRandomDeal()
@@ -64,8 +63,8 @@
       start()
     }
   }
-  
-  function getRandomDeal(dealSize = 3): Card[] {
+
+  function getRandomDeal(dealSize = options.dealSize): Card[] {
     let cards: Card[] = []
     for (let i = 0; i < dealSize; i++) {
       let randomIndex = Math.floor(Math.random() * allCards.length)
@@ -77,7 +76,7 @@
       let card = allCards[randomIndex]
       if (state.currentDeck.includes(card)) {
         // ...which also requires making new object
-        card = {...card} 
+        card = { ...card }
         card.id = generator.generateId()
       }
       cards.push(card)

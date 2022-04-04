@@ -36,13 +36,7 @@
           <CardPreview
             v-for="card in deal"
             :key="card.id"
-            :id="card.id"
-            :name="card.name"
-            :type="card.type"
-            :text="card.text"
-            :statA="card.statA"
-            :statB="card.statB"
-            :image="card.image"
+            :card="card"
             :movement-class="movementClasses[deal.indexOf(card)]"
             @click="pickHandler(card, deal.indexOf(card))"
           />
@@ -88,9 +82,10 @@
   })
 
   const movementClasses = reactive([
-    'movement-default',
-    'movement-default',
-    'movement-default'])
+    "movement-default",
+    "movement-default",
+    "movement-default",
+  ])
 
   const pickable = ref(true)
 
@@ -100,20 +95,20 @@
       pickable.value = false
       // 1) move->hide 2) change data 3) hide->appear
       // with 50ms delay between transition steps to avoid glitches
-      movementClasses.fill('movement-down')
-      movementClasses[pickedIndex] = 'movement-side'
+      movementClasses.fill("movement-down")
+      movementClasses[pickedIndex] = "movement-side"
       setTimeout(() => {
-        movementClasses.fill('movement-hidden')
-      }, 550);
+        movementClasses.fill("movement-hidden")
+      }, 550)
       setTimeout(() => {
-        emit('pick', pickedCard)
-      }, 600);
+        emit("pick", pickedCard)
+      }, 600)
       setTimeout(() => {
-        movementClasses.fill('movement-default')
-      }, 650);
+        movementClasses.fill("movement-default")
+      }, 650)
       setTimeout(() => {
         pickable.value = true
-      }, 1150);
+      }, 1150)
     }
   }
 
@@ -122,7 +117,6 @@
     (e: "restart"): void
     (e: "start"): void
   }>()
-
 </script>
 
 <style scoped lang="scss">
@@ -190,10 +184,12 @@
     display: inline-block;
     cursor: pointer;
   }
-  .modal-enter-active, .modal-leave-active {
+  .modal-enter-active,
+  .modal-leave-active {
     transition: opacity 0.5s ease;
   }
-  .modal-enter-from, .modal-leave-to {
+  .modal-enter-from,
+  .modal-leave-to {
     opacity: 0;
   }
 </style>

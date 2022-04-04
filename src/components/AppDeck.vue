@@ -19,15 +19,7 @@
         class="hover-preview"
         :style="previewOffsetStyle"
       >
-        <CardPreview
-          :id="cardPreviewData.id"
-          :name="cardPreviewData.name"
-          :type="cardPreviewData.type"
-          :text="cardPreviewData.text"
-          :statA="cardPreviewData.statA"
-          :statB="cardPreviewData.statB"
-          :image="cardPreviewData.image"
-        />
+        <CardPreview :card="cardPreviewData" />
       </div>
     </Transition>
   </div>
@@ -68,11 +60,12 @@
   const cardPreviewDisplayed = ref(false)
   const cardPreviewOffset = reactive({
     x: 0,
-    y: 0
+    y: 0,
   })
 
   const previewOffsetStyle = computed(
-    () => `transform: translate(${cardPreviewOffset.x}px,${cardPreviewOffset.y}px)`
+    () =>
+      `transform: translate(${cardPreviewOffset.x}px,${cardPreviewOffset.y}px)`
   )
 
   function computePreviewOffset(
@@ -80,23 +73,24 @@
     itemHeight = 60,
     previewHeight = 320,
     additionalHeight = 80
-  ): {x: number, y: number} {
+  ): { x: number; y: number } {
     // use <html>.clientHeight instead of window to account for scrollbars
     const windowHeight = document.children[0].clientHeight
     let computedHeight =
       itemIndex * itemHeight + previewHeight + additionalHeight
-    const x = document.children[0].scrollWidth - document.children[0].clientWidth
+    const x =
+      document.children[0].scrollWidth - document.children[0].clientWidth
     if (computedHeight < windowHeight) {
       return {
         x,
-        y: (itemIndex * itemHeight)
+        y: itemIndex * itemHeight,
       }
     }
     // if preview would render outside the window then place it at the bottom
     else {
       return {
         x,
-        y: 0
+        y: 0,
       }
     }
   }
@@ -104,10 +98,7 @@
   function displayCardPreview(card: Card) {
     cardPreviewData.value = card
     cardPreviewDisplayed.value = true
-    // const pickedIndex = props.deck.indexOf(card)
-    console.log(card.id);
-    
-    const pickedIndex = props.deck.findIndex(el => el.id === card.id)
+    const pickedIndex = props.deck.findIndex((el) => el.id === card.id)
     const offset = computePreviewOffset(pickedIndex)
     cardPreviewOffset.x = offset.x
     cardPreviewOffset.y = offset.y
@@ -116,7 +107,6 @@
   function hideCardPreview() {
     cardPreviewDisplayed.value = false
   }
-
 </script>
 
 <style scoped lang="scss">
@@ -127,7 +117,7 @@
     padding: 40px;
     background-color: $bg-darker;
     border-left: $border-dark;
-    overflow-y:visible;
+    overflow-y: visible;
   }
   .minicard {
     @include card-box;
@@ -166,10 +156,13 @@
     z-index: 2;
   }
   // list item add/remove transition classes
-  .fade-move, .fade-enter-active, .fade-leave-active {
+  .fade-move,
+  .fade-enter-active,
+  .fade-leave-active {
     transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   }
-  .fade-enter-from, .fade-leave-to {
+  .fade-enter-from,
+  .fade-leave-to {
     opacity: 0;
     transform: translate(-30px, 0);
   }
@@ -177,10 +170,12 @@
     position: absolute;
   }
   // preview appear/disappear classes
-  .preview-enter-active, .preview-leave-active {
+  .preview-enter-active,
+  .preview-leave-active {
     transition: opacity 0.2s ease-in-out;
   }
-  .preview-enter-from, .preview-leave-to {
+  .preview-enter-from,
+  .preview-leave-to {
     opacity: 0;
   }
 </style>

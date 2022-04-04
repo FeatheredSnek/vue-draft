@@ -1,40 +1,31 @@
 <template>
-<div class="movement-wrapper" :class="movementClass">
-  <div class="card" :class="type" :id="id">
-    <div class="title-wrap">
-      <div class="card-title">
-        {{ name }}
+  <div class="movement-wrapper" :class="movementClass">
+    <div class="card" :class="card.type" :id="card.id">
+      <div class="title-wrap">
+        <div class="card-title">
+          {{ card.name }}
+        </div>
       </div>
-    </div>
-    <div class="body">
-      <img :src="image" />
-      <p>
-        {{ text }}
-      </p>
-    </div>
-    <div class="card-stats">
-      <div class="stat">
-        <i class="bi-heart-fill"></i>{{ statA }}
+      <div class="body">
+        <img :src="card.image" />
+        <p>
+          {{ card.text }}
+        </p>
       </div>
-      <div class="stat">
-        <i class="bi-star-fill"></i>{{ statB }}
+      <div class="card-stats">
+        <div class="stat"><i class="bi-heart-fill"></i>{{ card.statA }}</div>
+        <div class="stat"><i class="bi-star-fill"></i>{{ card.statB }}</div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script setup lang="ts">
   import { defineProps } from "vue"
+  import { Card } from "@/types/index"
 
   defineProps<{
-    id: string
-    name: string
-    type: string
-    text: string
-    statA: number
-    statB: number
-    image: string
+    card: Card
     movementClass?: string
   }>()
 </script>

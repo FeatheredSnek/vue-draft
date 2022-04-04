@@ -13,8 +13,7 @@
           :class="restartButtonStatus"
           @click.prevent="$emit('restart')"
         ></i>
-        <!-- TODO github link -->
-        <a href="github link" target="_blank"
+        <a href="https://github.com/FeatheredSnek/vue-draft" target="_blank"
           ><i class="bi-github hoverable"></i
         ></a>
       </div>

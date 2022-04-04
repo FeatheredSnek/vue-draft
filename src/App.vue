@@ -78,7 +78,19 @@
   }
 
   function pickCard(picked: Card) {
-    state.currentDeck.push(picked)
+    // find the last card of a picked type
+    let lastTypeIndex = state.currentDeck.length
+    if (lastTypeIndex !== 0) {
+      for (let i = state.currentDeck.length - 1; i >= 0; i--) {
+        if (state.currentDeck[i].type === picked.type) {
+          lastTypeIndex = i
+          break
+        }
+      }
+    }
+    // place picked behind the last card of a type
+    state.currentDeck.splice(lastTypeIndex + 1, 0, picked)
+    // update rounds
     if (state.currentRound <= totalRounds) {
       state.currentRound += 1
       state.currentDeal = getRandomDeal()

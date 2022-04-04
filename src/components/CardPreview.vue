@@ -35,7 +35,7 @@
     statA: number
     statB: number
     image: string
-    movementClass: string
+    movementClass?: string
   }>()
 </script>
 

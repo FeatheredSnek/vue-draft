@@ -25,7 +25,7 @@
   import AppPicker from "@/components/AppPicker.vue"
   import AppDeck from "@/components/AppDeck.vue"
   import AppStats from "@/components/AppStats.vue"
-  import { reactive } from "vue"
+  import { nextTick, reactive } from "vue"
   import { Card, State, Controls } from "@/types/index"
 
   // use random card generator
@@ -54,16 +54,17 @@
     }
   }
 
-  function restart() {
+  async function restart() {
     if (state.currentRound != 0) {
       state.currentDeal.length = 0
       state.currentDeck.length = 0
       state.currentRound = 0
+      // gives time for dom transitions to happen
+      await nextTick()
       start()
     }
   }
-  //TODO restart animation
-
+  
   function getRandomDeal(dealSize = 3): Card[] {
     let cards: Card[] = []
     for (let i = 0; i < dealSize; i++) {

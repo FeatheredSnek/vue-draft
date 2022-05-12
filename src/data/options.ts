@@ -1,7 +1,7 @@
 export default {
   dealSize: 3,
   batchSize: 60,
-  draftSize: 15,
+  draftSize: 10,
   maxStat: 9,
   minStat: 0,
   minTextLength: 8,

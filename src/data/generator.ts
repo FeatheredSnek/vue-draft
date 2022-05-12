@@ -22,6 +22,7 @@ export default {
     const batchNames = this.lists.names
       .sort(() => 0.5 - Math.random())
       .slice(0, batchSize)
+    if (options.prefetchedImages) this.generatePrefetchedPaths(batchSize)
     const batchImages = this.lists.images
       .sort(() => 0.5 - Math.random())
       .slice(0, batchSize)
@@ -79,4 +80,14 @@ export default {
   generateImage(imageList: string[]) {
     return imageList[Math.floor(Math.random() * imageList.length)]
   },
+
+  generatePrefetchedPaths(count: number) {
+    const arr = []
+    const prefetchedPath = "prefetched/"
+    const format = ".jpg"
+    for (let i = 1; i <= count; i++) {
+      arr.push(prefetchedPath + `${i}`.padStart(2, "0") + format)
+    }
+    this.lists.images = arr
+  }
 }

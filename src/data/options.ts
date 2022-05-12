@@ -5,5 +5,6 @@ export default {
   maxStat: 9,
   minStat: 0,
   minTextLength: 8,
-  maxTextLength: 13
+  maxTextLength: 13,
+  prefetchedImages: true
 }
